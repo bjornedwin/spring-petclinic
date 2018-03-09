@@ -45,10 +45,7 @@ pipeline {
       agent any
       steps {
         //sample dummy step
-        sh 'echo Unit Testing Start'
-        sh 'sleep 5'
-        sh 'echo Unit Test End'
-        sh 'echo RESULT - 20 tests pass'
+        sh 'mvn clean test'
       }
     }
     stage('Code Static Scan') {
@@ -145,7 +142,7 @@ pipeline {
       steps {
         //sample dummy step
         sh 'sleep 5'
-        sh 'CO closed'
+        sh '0 issues found, lets party'
       }
     }
   }
