@@ -133,18 +133,11 @@ pipeline {
         sh 'sleep 10'
       }
     }
-    stage('Create Prodution Infrastrucure') {
+    stage('Invoke Infra Pipeline - Production') {
       agent any
       steps {
         //sample dummy step
         sh 'sleep 10'
-      }
-    }
-    stage('Validate Prodution Environment') {
-      agent any
-      steps {
-        //sample dummy step
-        sh 'sleep 3'
       }
     }
     stage('Deploy to Prod') {
@@ -155,7 +148,5 @@ pipeline {
         sh 'CO closed'
       }
     }
-
-
   }
 }
