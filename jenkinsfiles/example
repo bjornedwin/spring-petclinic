@@ -96,7 +96,7 @@ pipeline {
         sh 'echo Functional Test Start'
         sh 'sleep 6'
         sh 'echo Functional Test End'
-        sh 'echo RESULT - 10 tests pass | 1 tests fail'
+        sh 'echo RESULT -- 10 tests pass - 1 tests fail'
       }
     }
     stage('Security Tests') {
@@ -106,7 +106,7 @@ pipeline {
         sh 'echo Security Test Start'
         sh 'sleep 5'
         sh 'echo Security Test End'
-        sh 'echo RESULT - 0 Critical issues | 0 High Issues | 0 Medium issues | 2 Low issues |'
+        sh 'echo RESULT -- 0 Critical issues - 0 High Issues - 0 Medium issues - 2 Low issues'
       }
     }
     stage('Performance Tests') {
@@ -116,7 +116,7 @@ pipeline {
         sh 'echo Performance Test Start'
         sh 'sleep 8'
         sh 'echo Performance Test End'
-        sh 'echo RESULT - Performance Testing score 80/100'
+        sh 'echo RESULT - Performance Testing score 80 of 100'
       }
     }
     stage('Create Change Order') {
