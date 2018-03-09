@@ -8,6 +8,12 @@ pipeline {
   }
 
   stages {
+    stage('SCM Checkout'){
+      agent any
+      steps {
+        git ' https://github.com/bjornedwin/spring-petclinic'
+      }
+    }
     stage('Build') {
       agent any
       steps {
@@ -35,19 +41,121 @@ pipeline {
         sh "docker run -d -p 9966:8080 --name petclinic-tomcat-temp ${env.IMAGE}:${TAG}"
       }
     }
-    stage('Smoke-Test Dev') {
+    stage('Unit Test Dev') {
+      agent any
+      steps {
+        //sample dummy step
+        sh 'echo Unit Testing Start'
+        sh 'sleep 5'
+        sh 'echo Unit Test End'
+        sh 'echo RESULT - 20 tests pass'
+      }
+    }
+    stage('Code Static Scan') {
+      agent any
+      steps {
+        //sample dummy step
+        sh 'echo Code Static Scan Start'
+        sh 'sleep 4'
+        sh 'echo Code Static Scan End'
+        sh 'echo RESULT - Quality score 100'
+      }
+    }
+    stage('Sonar Code Coverage') {
+      agent any
+      steps {
+        //sample dummy step
+        sh 'echo Sonar Code Coverage Start'
+        sh 'sleep 4'
+        sh 'echo Sonar Code Coverage End'
+        sh 'echo RESULT - Code coverage 100percent'
+      }
+    }
+    stage('Deploy to QA') {
       agent any
       steps {
         //sample dummy step
         sh 'sleep 4'
+        sh 'echo deploy to QA complete'
       }
     }
-    stage('Another stage') {
+    stage('Smoke Tests') {
       agent any
       steps {
         //sample dummy step
-        sh 'sleep 4'
+        sh 'echo Smoke Test Start'
+        sh 'sleep 3'
+        sh 'echo Smoke Test End'
+        sh 'echo RESULT - 5 tests pass'
       }
     }
+    stage('Functional Tests') {
+      agent any
+      steps {
+        //sample dummy step
+        sh 'echo Functional Test Start'
+        sh 'sleep 6'
+        sh 'echo Functional Test End'
+        sh 'echo RESULT - 10 tests pass | 1 tests fail'
+      }
+    }
+    stage('Security Tests') {
+      agent any
+      steps {
+        //sample dummy step
+        sh 'echo Security Test Start'
+        sh 'sleep 5'
+        sh 'echo Security Test End'
+        sh 'echo RESULT - 0 Critical issues | 0 High Issues | 0 Medium issues | 2 Low issues |'
+      }
+    }
+    stage('Performance Tests') {
+      agent any
+      steps {
+        //sample dummy step
+        sh 'echo Performance Test Start'
+        sh 'sleep 8'
+        sh 'echo Performance Test End'
+        sh 'echo RESULT - Performance Testing score 80/100'
+      }
+    }
+    stage('Create Change Order') {
+      agent any
+      steps {
+        //sample dummy step
+        sh 'sleep 10'
+      }
+    }
+    stage('Poll for CO approval') {
+      agent any
+      steps {
+        //sample dummy step
+        sh 'sleep 10'
+      }
+    }
+    stage('Create Prodution Infrastrucure') {
+      agent any
+      steps {
+        //sample dummy step
+        sh 'sleep 10'
+      }
+    }
+    stage('Validate Prodution Environment') {
+      agent any
+      steps {
+        //sample dummy step
+        sh 'sleep 3'
+      }
+    }
+    stage('Deploy to Prod') {
+      agent any
+      steps {
+        //sample dummy step
+        sh 'sleep 5'
+        sh 'CO closed'
+      }
+    }
+
+
   }
 }
