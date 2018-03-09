@@ -142,7 +142,6 @@ pipeline {
       steps {
         //sample dummy step
         sh 'sleep 5'
-        sh '0 issues found, lets party'
       }
     }
   }
