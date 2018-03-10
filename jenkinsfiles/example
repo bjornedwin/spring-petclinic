@@ -41,31 +41,35 @@ pipeline {
         sh "docker run -d -p 9966:8080 --name petclinic-tomcat-temp ${env.IMAGE}:${TAG}"
       }
     }
-    stage('Unit Test Dev') {
-      agent any
-      steps {
-        //sample dummy step
-        sh 'mvn clean test'
-      }
-    }
-    stage('Code Static Scan') {
-      agent any
-      steps {
-        //sample dummy step
-        sh 'echo Code Static Scan Start'
-        sh 'sleep 4'
-        sh 'echo Code Static Scan End'
-        sh 'echo RESULT - Quality score 100'
-      }
-    }
-    stage('Sonar Code Coverage') {
-      agent any
-      steps {
-        //sample dummy step
-        sh 'echo Sonar Code Coverage Start'
-        sh 'sleep 4'
-        sh 'echo Sonar Code Coverage End'
-        sh 'echo RESULT - Code coverage 100percent'
+    stage('Dev Tasks'){
+      parallel{
+        stage('Unit Test Dev') {
+          agent any
+          steps {
+            //sample dummy step
+            sh 'mvn clean test'
+          }
+        }
+        stage('Code Static Scan') {
+          agent any
+          steps {
+            //sample dummy step
+            sh 'echo Code Static Scan Start'
+            sh 'sleep 4'
+            sh 'echo Code Static Scan End'
+            sh 'echo RESULT - Quality score 100'
+          }
+        }
+        stage('Sonar Code Coverage') {
+          agent any
+          steps {
+            //sample dummy step
+            sh 'echo Sonar Code Coverage Start'
+            sh 'sleep 4'
+            sh 'echo Sonar Code Coverage End'
+            sh 'echo RESULT - Code coverage 100percent'
+          }
+        }
       }
     }
     stage('Deploy to QA') {
@@ -86,36 +90,41 @@ pipeline {
         sh 'echo RESULT - 5 tests pass'
       }
     }
-    stage('Functional Tests') {
-      agent any
-      steps {
-        //sample dummy step
-        sh 'echo Functional Test Start'
-        sh 'sleep 6'
-        sh 'echo Functional Test End'
-        sh 'echo RESULT -- 10 tests pass - 1 tests fail'
+    stage('QA Testing'){
+      parallel{
+        stage('Functional Tests') {
+          agent any
+          steps {
+            //sample dummy step
+            sh 'echo Functional Test Start'
+            sh 'sleep 6'
+            sh 'echo Functional Test End'
+            sh 'echo RESULT -- 10 tests pass - 1 tests fail'
+          }
+        }
+        stage('Security Tests') {
+          agent any
+          steps {
+            //sample dummy step
+            sh 'echo Security Test Start'
+            sh 'sleep 5'
+            sh 'echo Security Test End'
+            sh 'echo RESULT -- 0 Critical issues - 0 High Issues - 0 Medium issues - 2 Low issues'
+          }
+        }
+        stage('Performance Tests') {
+          agent any
+          steps {
+            //sample dummy step
+            sh 'echo Performance Test Start'
+            sh 'sleep 8'
+            sh 'echo Performance Test End'
+            sh 'echo RESULT - Performance Testing score 80 of 100'
+          }
+        }
       }
     }
-    stage('Security Tests') {
-      agent any
-      steps {
-        //sample dummy step
-        sh 'echo Security Test Start'
-        sh 'sleep 5'
-        sh 'echo Security Test End'
-        sh 'echo RESULT -- 0 Critical issues - 0 High Issues - 0 Medium issues - 2 Low issues'
-      }
-    }
-    stage('Performance Tests') {
-      agent any
-      steps {
-        //sample dummy step
-        sh 'echo Performance Test Start'
-        sh 'sleep 8'
-        sh 'echo Performance Test End'
-        sh 'echo RESULT - Performance Testing score 80 of 100'
-      }
-    }
+    
     stage('Create Change Order') {
       agent any
       steps {
